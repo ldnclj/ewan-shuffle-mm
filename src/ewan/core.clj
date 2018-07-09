@@ -24,7 +24,7 @@
      (cond
        (empty? data)                      []
        (not= last-provider head-provider) (cons head (ewan rest-data max-run head-provider 1))
-       (< used-times max-run)      (cons head (ewan rest-data max-run head-provider (inc used-times)))
+       (< used-times max-run)             (cons head (ewan rest-data max-run head-provider (inc used-times)))
        :break                             (let [[skipped remainder] (split-with #(= (:provider %) last-provider) data)
                                                 head                (first remainder)
                                                 unused-products     (concat skipped (rest remainder))]
