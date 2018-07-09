@@ -2,7 +2,7 @@
   (:require [clojure.pprint :as pprint])
   (:gen-class))
 
-(def data
+#_(def data
   [
    {:rank 2 :provider "BT" :product "more phone calls"}
    {:rank 1 :provider "BT" :product "phone calls"}
@@ -15,6 +15,17 @@
    ])
 
 
+(def data
+  [
+   {:rank 1 :provider "BT" :product "phone calls"}
+   {:rank 2 :provider "BT" :product "more phone calls"}
+   {:rank 3 :provider "BT" :product "spam phone calls"}
+   {:rank 4 :provider "BT" :product "adverts"}
+   {:rank 5 :provider "BT" :product "loud adverts"}
+   {:rank 6 :provider "sky" :product "football"}
+   {:rank 7 :provider "BT" :product "bbc news"}
+   {:rank 8 :provider "BT" :product "line rental"}
+   ])
 (defn ewan
   ([data max-run]
    (ewan (sort-by :rank data) max-run nil 0))
@@ -42,6 +53,7 @@
 
   (println "new way max 2")
   (clojure.pprint/pprint (ewan data 2))
+
   (println "new way max 1")
   (clojure.pprint/pprint (ewan data 1))
   )
