@@ -10,7 +10,7 @@
    {:rank 3 :provider "BT" :product "spam phone calls"}
    {:rank 4 :provider "sky" :product "adverts"}
    {:rank 6 :provider "sky" :product "football"}
-   {:rank 7 :provider "BT" :product "have you had an accident in the last 3 years that wasn't your fault"}
+   {:rank 7 :provider "BT" :product "bbc news"}
    {:rank 8 :provider "BT" :product "line rental"}
    ])
 
