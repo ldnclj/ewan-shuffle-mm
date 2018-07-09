@@ -11,6 +11,7 @@
    {:rank 4 :provider "sky" :product "adverts"}
    {:rank 6 :provider "sky" :product "football"}
    {:rank 7 :provider "BT" :product "loud adverts"}
+   {:rank 8 :provider "BT" :product "line rental"}
    ])
 
 
@@ -27,7 +28,8 @@
        :break                             (let [[skipped remainder] (split-with #(= (:provider %) last-provider) data)
                                                 head                (first remainder)
                                                 unused-products     (concat skipped (rest remainder))]
-                                            (cons head (ewan unused-products max-run (:provider head) 1)))))))
+                                            (if  (empty? remainder) skipped
+                                                 (cons head (ewan unused-products max-run (:provider head) 1))))))))
 
 
 ;(clojure.pprint/pprint (ewan data 2))
