@@ -16,21 +16,20 @@
 (defn ewan
   ([data max-run]
    (ewan (sort-by :rank data) max-run nil 0))
-
   ([data max-run last-provider last-provider-num]
-   (let [head (first data)]
+   (let [[head & rest-data] data
+         head-provider      (:provider head)]
      (cond
-       (empty? data) []
-       (or (nil? last-provider) (not= last-provider (:provider head))) (cons head (ewan (rest data) max-run (:provider head) 1))
-       (< last-provider-num max-run) (cons head (ewan (rest data) max-run (:provider head) (inc last-provider-num)))
-       :break-it-up
-       (let [skipped (take-while #(= (:provider %) last-provider) data)
-             remainder (drop-while #(= (:provider %) last-provider) data)
-             head (first remainder)
-             unused-products (concat skipped (rest remainder))]
-         (cons head (ewan unused-products max-run (:provider head) 1)))))))
+       (empty? data)                      []
+       (not= last-provider head-provider) (cons head (ewan rest-data max-run head-provider 1))
+       (< last-provider-num max-run)      (cons head (ewan rest-data max-run head-provider (inc last-provider-num)))
+       :break                             (let [[skipped remainder] (split-with #(= (:provider %) last-provider) data)
+                                                head                (first remainder)
+                                                unused-products     (concat skipped (rest remainder))]
+                                            (cons head (ewan unused-products max-run (:provider head) 1)))))))
 
-(clojure.pprint/pprint (ewan data 1))
+
+(clojure.pprint/pprint (ewan data 2))
 
 (clojure.pprint/pprint (sort-by :rank data ))
 
