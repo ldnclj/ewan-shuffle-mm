@@ -16,13 +16,13 @@
 (defn ewan
   ([data max-run]
    (ewan (sort-by :rank data) max-run nil 0))
-  ([data max-run last-provider last-provider-num]
+  ([data max-run last-provider used-times]
    (let [[head & rest-data] data
          head-provider      (:provider head)]
      (cond
        (empty? data)                      []
        (not= last-provider head-provider) (cons head (ewan rest-data max-run head-provider 1))
-       (< last-provider-num max-run)      (cons head (ewan rest-data max-run head-provider (inc last-provider-num)))
+       (< used-times max-run)      (cons head (ewan rest-data max-run head-provider (inc used-times)))
        :break                             (let [[skipped remainder] (split-with #(= (:provider %) last-provider) data)
                                                 head                (first remainder)
                                                 unused-products     (concat skipped (rest remainder))]
