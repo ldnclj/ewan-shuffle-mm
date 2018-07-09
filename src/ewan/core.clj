@@ -1,4 +1,5 @@
 (ns ewan.core
+  (:require [clojure.pprint :as pprint])
   (:gen-class))
 
 (def data
@@ -29,11 +30,16 @@
                                             (cons head (ewan unused-products max-run (:provider head) 1)))))))
 
 
-(clojure.pprint/pprint (ewan data 2))
-
-(clojure.pprint/pprint (sort-by :rank data ))
+;(clojure.pprint/pprint (ewan data 2))
+;(clojure.pprint/pprint (sort-by :rank data ))
 
 (defn -main
   [& args]
-  (clojure.pprint/pprint (sort-by :rank data ))
+  (println "old way")
+  (pprint/pprint (sort-by :rank data ))
+
+  (println "new way max 2")
+  (clojure.pprint/pprint (ewan data 2))
+  (println "new way max 1")
+  (clojure.pprint/pprint (ewan data 1))
   )
